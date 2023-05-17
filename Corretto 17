@@ -1,0 +1,40 @@
+---
+- name: Update Java dependency in Docker container
+  hosts: sujan
+  become: yes
+
+  tasks:
+    - name: Install docker-py as a workaround for Ansible issue
+      pip: name=docker-py version=1.10.6
+      become: true
+
+        #  - name: Install python-apt package
+        #apt:
+        # name: python-apt
+        # state: present
+        # become: yes
+
+    - name: Remove existing Java packages
+      yum :
+        name:
+          - openjdk-8-jdk
+          - openjdk-11-jdk
+          - openjdk-17-jdk
+          - other_java_packages
+        state: absent
+      become: yes
+
+    - name: Download Amazon Corretto 11 JDK rpm package
+      get_url:
+        url: https://corretto.aws/downloads/latest/amazon-corretto-11-x64-linux-jdk.rpm
+        dest: /tmp/amazon-corretto-11-x64-linux-jdk.rpm
+
+    - name: Install Amazon Corretto 11 JDK
+      yum:
+        name: /tmp/amazon-corretto-11-x64-linux-jdk.rpm
+        state: present
+      become: yes
+
+    - name: Clean up downloaded package
+      file:
+        path: /tmp/amazon-corretto-11-x64-linux-jdk.deb
