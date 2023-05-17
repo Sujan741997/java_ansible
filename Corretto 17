@@ -24,17 +24,17 @@
         state: absent
       become: yes
 
-    - name: Download Amazon Corretto 11 JDK rpm package
+    - name: Download Amazon Corretto 17 JDK rpm package
       get_url:
-        url: https://corretto.aws/downloads/latest/amazon-corretto-11-x64-linux-jdk.rpm
-        dest: /tmp/amazon-corretto-11-x64-linux-jdk.rpm
+        url: https://corretto.aws/downloads/latest/amazon-corretto-17-x64-linux-jdk.rpm
+        dest: /tmp/amazon-corretto-17-x64-linux-jdk.rpm
 
-    - name: Install Amazon Corretto 11 JDK
+    - name: Install Amazon Corretto 17 JDK
       yum:
-        name: /tmp/amazon-corretto-11-x64-linux-jdk.rpm
+        name: /tmp/amazon-corretto-17-x64-linux-jdk.rpm
         state: present
       become: yes
 
     - name: Clean up downloaded package
       file:
-        path: /tmp/amazon-corretto-11-x64-linux-jdk.deb
+        path: /tmp/amazon-corretto-17-x64-linux-jdk.deb
