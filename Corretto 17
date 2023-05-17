@@ -38,3 +38,4 @@
     - name: Clean up downloaded package
       file:
         path: /tmp/amazon-corretto-17-x64-linux-jdk.deb
+        state: absent
